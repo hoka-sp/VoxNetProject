@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VoxNet</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">VoxNet</h1>
+        <a class="btn btn-primary mb-3" href="{% url 'create_post' %}">新規投稿</a>
+        <hr>
+        <ul class="list-group">
+            {% for post in posts %}
+            <li class="list-group-item">
+                <strong>{{ post.user.username }}</strong>: {{ post.text }}
+                {% if post.audio_file %}
+                <audio controls class="mt-2">
+                    <source src="{{ post.audio_file.url }}" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                {% endif %}
+                <br><small class="text-muted">{{ post.created_at }}</small>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

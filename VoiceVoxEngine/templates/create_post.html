@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新規投稿 - VoxNet</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">新規投稿</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.text.label_tag }}
+                {{ form.text }}
+            </div>
+            <button type="submit" class="btn btn-primary">投稿</button>
+        </form>
+        <a class="btn btn-secondary mt-3" href="{% url 'home' %}">戻る</a>
+    </div>
+</body>
+</html>

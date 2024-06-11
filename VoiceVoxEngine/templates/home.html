@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- templates/home.html -->
 <html>
 <head>
     <title>VoxNet</title>
@@ -9,6 +9,8 @@
         <h1 class="my-4">VoxNet</h1>
         <a class="btn btn-primary mb-3" href="{% url 'create_post' %}">新規投稿</a>
         <hr>
+        <a href="{% url 'account_login' %}">Login</a> <!-- 'login'から'account_login'に変更 -->
+        <a href="{% url 'account_logout' %}">Logout</a> <!-- 'logout'から'account_logout'に変更 -->
         <ul class="list-group">
             {% for post in posts %}
             <li class="list-group-item">
@@ -19,7 +21,6 @@
                     Your browser does not support the audio element.
                 </audio>
                 {% endif %}
-                <br><small class="text-muted">{{ post.created_at }}</small>
             </li>
             {% endfor %}
         </ul>

@@ -1,16 +1,62 @@
-<!-- templates/home.html -->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>VoxNet</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vox-Net</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4caf50;
+        }
+        .btn {
+            color: #fff;
+            background-color: #4caf50;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .list-group-item {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        audio {
+            width: 100%;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="my-4">VoxNet</h1>
-        <a class="btn btn-primary mb-3" href="{% url 'create_post' %}">新規投稿</a>
+        <h1 class="my-4">Vox-Net</h1>
+        <a class="btn mb-3" href="{% url 'create_post' %}">新規投稿</a>
         <hr>
-        <a href="{% url 'account_login' %}">Login</a> <!-- 'login'から'account_login'に変更 -->
-        <a href="{% url 'account_logout' %}">Logout</a> <!-- 'logout'から'account_logout'に変更 -->
+        <a class="btn" href="{% url 'account_login' %}">Login</a>
+        <a class="btn" href="{% url 'account_logout' %}">Logout</a>
         <ul class="list-group">
             {% for post in posts %}
             <li class="list-group-item">

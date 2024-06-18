@@ -65,6 +65,12 @@
             color: white;
         }
     </style>
+    <script>
+        function disableButton(button) {
+            button.disabled = true;
+            button.form.submit();
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -75,7 +81,7 @@
                 {{ form.text.label_tag }}
                 {{ form.text }}
             </div>
-            <button type="submit" class="btn btn-primary">投稿</button>
+            <button type="submit" class="btn btn-primary" onclick="disableButton(this)">投稿</button>
         </form>
         <a class="btn btn-secondary mt-3" href="{% url 'home' %}">戻る</a>
     </div>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vox-Net{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            flex: 1;
+            display: flex;
+        }
+        .left-sidebar, .right-sidebar {
+            width: 20%;
+            padding: 1rem;
+        }
+        .main-content {
+            width: 60%;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #4caf50;
+        }
+        .btn {
+            color: #fff;
+            background-color: #4caf50;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .list-group-item {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            list-style-type: none; /* Remove the default list bullet */
+            display: flex;
+            align-items: center;
+        }
+        .list-group-item:hover {
+            background-color: #f1f1f1;
+        }
+        .audio-hidden {
+            display: none;
+        }
+        ul.list-group {
+            padding-left: 0;
+        }
+        .play-icon {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: #4caf50;
+            transition: color 0.3s;
+        }
+        .playing .play-icon {
+            color: #ff5722; /* 再生中の色 */
+        }
+        footer {
+            background-color: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+    </style>
+    {% block extra_styles %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <p>Powered by <a href="https://voicevox.hiroshiba.jp/" target="_blank">VOICEVOX:ずんだもん</a></p>
+    </footer>
+    {% block extra_scripts %}{% endblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const listItems = document.querySelectorAll('.list-group-item');
+            let currentlyPlaying = null;
+
+            listItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    if (currentlyPlaying && !currentlyPlaying.paused) {
+                        // Do nothing if an audio is already playing
+                        return;
+                    }
+
+                    const audioUrl = this.getAttribute('data-audio');
+                    if (audioUrl) {
+                        if (currentlyPlaying) {
+                            currentlyPlaying.pause();
+                            currentlyPlaying.currentTime = 0;
+                            currentlyPlaying.closest('.list-group-item').classList.remove('playing');
+                        }
+
+                        const audio = new Audio(audioUrl);
+                        currentlyPlaying = audio;
+                        audio.play();
+                        this.classList.add('playing');
+
+                        audio.addEventListener('ended', () => {
+                            this.classList.remove('playing');
+                            currentlyPlaying = null;
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

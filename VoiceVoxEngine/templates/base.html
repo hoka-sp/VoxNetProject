@@ -20,6 +20,12 @@
             margin: 2rem auto;
             flex: 1;
             display: flex;
+            flex-direction: column;
+        }
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
         }
         .left-sidebar, .right-sidebar {
             width: 20%;
@@ -64,6 +70,9 @@
         .list-group-item:hover {
             background-color: #f1f1f1;
         }
+        .list-group-item > div {
+            flex-grow: 1;
+        }
         .audio-hidden {
             display: none;
         }
@@ -90,10 +99,23 @@
             color: white;
             text-decoration: underline;
         }
-        .content-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
+        .profile-block {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            .content-container {
+                flex-direction: column;
+            }
+            .left-sidebar, .right-sidebar, .main-content {
+                width: 100%;
+            }
+            .profile-block {
+                text-align: center;
+            }
         }
     </style>
     {% block extra_styles %}{% endblock %}
@@ -114,18 +136,13 @@
             listItems.forEach(item => {
                 item.addEventListener('click', function () {
                     if (currentlyPlaying && !currentlyPlaying.paused) {
-                        // Do nothing if an audio is already playing
-                        return;
+                        currentlyPlaying.pause();
+                        currentlyPlaying.currentTime = 0;
+                        currentlyPlaying.closest('.list-group-item').classList.remove('playing');
                     }
 
                     const audioUrl = this.getAttribute('data-audio');
                     if (audioUrl) {
-                        if (currentlyPlaying) {
-                            currentlyPlaying.pause();
-                            currentlyPlaying.currentTime = 0;
-                            currentlyPlaying.closest('.list-group-item').classList.remove('playing');
-                        }
-
                         const audio = new Audio(audioUrl);
                         currentlyPlaying = audio;
                         audio.play();

@@ -20,7 +20,10 @@
             {% for post in posts %}
             <li class="list-group-item" data-audio="{{ post.audio_file.url }}">
                 <span class="play-icon">▶</span>
-                <strong>{{ post.user.username }}</strong>: {{ post.text }}
+                <div>
+                    <strong>{{ post.user.username }}</strong>
+                    <div>{{ post.text }}</div>
+                </div>
             </li>
             {% endfor %}
         </ul>

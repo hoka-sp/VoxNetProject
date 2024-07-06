@@ -8,7 +8,8 @@
                 <p>{{ user.username }}さん。<br>ボックスネットへようこそ！</p>
                 <a class="btn" href="{% url 'account_logout' %}">Logout</a>
             {% else %}
-                <a class="btn" href="{% url 'account_login' %}">Login</a>
+            <p>ゲストさん。<br>ボックスネットへようこそ！</p>
+            <a class="btn" href="{% url 'account_login' %}">Login</a>
             {% endif %}
         </div>
     </div>
